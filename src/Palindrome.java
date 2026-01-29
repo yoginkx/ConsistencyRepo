@@ -24,7 +24,7 @@ public class Palindrome {
     public static boolean isPalindrome(int x) {
         String s = String.valueOf(x);
         char arr[] = s.toCharArray();
-        if(x<0) return false;
+        if(x<0 || (x%10==0 && x!=0)) return false;
         int i=0; int j=arr.length-1;
         while(i<j){
             if(arr[i]!=arr[j]) return false;
@@ -34,8 +34,22 @@ public class Palindrome {
         return true;
     }
 
+    public static boolean isPalindromeEff(int x) {
+        if (x < 0) {
+            return false;
+        }
+        int original = x;
+        int reversed = 0;
+        while (x > 0) {
+            reversed = reversed * 10 + x % 10;
+            x /= 10;
+        }
+        return original == reversed;
+    }
+
     public static void main(String[] args) {
-        int a = 121;
-        System.out.println(isPalindrome(a));
+        int a = 1;
+//        System.out.println(isPalindrome(a));
+        System.out.println(isPalindromeEff(a));
     }
 }
