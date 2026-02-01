@@ -30,13 +30,24 @@ Thus, the result should be [1,0].
 
 public class PlusOne {
     public static void main(String[] args) {
-        int digits[] = plusOne(new int[]{1,3,4,5});
+        int digits[] = plusOneNew(new int[]{1,3,4,9});
         for (int d: digits) System.out.println(d);
     }
-    public static int[] plusOne(int[] digits) {
-        for(int i=digits.length-1; i>digits.length-2; i--){
-            digits[i] = digits[i] + 1;
+
+    public static int[] plusOneNew(int[] digits) {
+        // Start from the last index
+        for (int i = digits.length - 1; i >= 0; i--) {
+            // Check if last array index (or current) is less than 9
+            if (digits[i] < 9) {
+                digits[i]++;
+                return digits; // No carry needed
+            }
+            // It's 9 or greater, set to 0 and carry over
+            digits[i] = 0;
         }
-        return digits;
+        // All were 9s, need new array with extra digit
+        int[] result = new int[digits.length + 1];
+        result[0] = 1;
+        return result;
     }
 }
