@@ -28,12 +28,7 @@ The number of nodes in both lists is in the range [0, 50].
 -100 <= Node.val <= 100
 Both list1 and list2 are sorted in non-decreasing order.
  */
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-// Definition for singly-linked list.
+// Definition for singly-linked list
 class ListNode {
     int val;
     ListNode next;
@@ -42,40 +37,66 @@ class ListNode {
     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 }
 
-public class Merge2SortedList {
+class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        // Brute force: collect all values into ArrayList
-        List<Integer> values = new ArrayList<>();
+        // Brute force: collect all values into array, sort, build new list
+        java.util.ArrayList<Integer> values = new java.util.ArrayList<>();
 
-        // Traverse list1 and add values
-        ListNode curr = list1;
-        while (curr != null) {
-            values.add(curr.val);
-            curr = curr.next;
+        // Collect values from list1
+        ListNode curr1 = list1;
+        while (curr1 != null) {
+            values.add(curr1.val);
+            curr1 = curr1.next;
         }
 
-        // Traverse list2 and add values
-        curr = list2;
-        while (curr != null) {
-            values.add(curr.val);
-            curr = curr.next;
+        // Collect values from list2
+        ListNode curr2 = list2;
+        while (curr2 != null) {
+            values.add(curr2.val);
+            curr2 = curr2.next;
         }
 
         // Sort the values
-        Collections.sort(values);
+        java.util.Collections.sort(values);
 
-        // Build new sorted linked list
+        // Build new sorted list
         if (values.isEmpty()) {
             return null;
         }
 
-        ListNode head = new ListNode(values.get(0));
-        ListNode tail = head;
-        for (int i = 1; i < values.size(); i++) {
-            tail.next = new ListNode(values.get(i));
-            tail = tail.next;
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        for (int value : values) {
+            current.next = new ListNode(value);
+            current = current.next;
         }
 
-        return head;
+        return dummy.next;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        // Create list1: 1->2->4
+        ListNode list1 = new ListNode(1);
+        list1.next = new ListNode(2);
+        list1.next.next = new ListNode(4);
+
+        // Create list2: 1->3->4
+        ListNode list2 = new ListNode(1);
+        list2.next = new ListNode(3);
+        list2.next.next = new ListNode(4);
+
+        ListNode result = solution.mergeTwoLists(list1, list2);
+
+        // Print result
+        System.out.print("Merged list: ");
+        ListNode curr = result;
+        while (curr != null) {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        }
+        System.out.println();  // Output: Merged list: 1 1 2 3 4 4
     }
 }
+
