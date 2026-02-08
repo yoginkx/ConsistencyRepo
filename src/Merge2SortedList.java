@@ -39,6 +39,8 @@ class ListNode {
 
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+
+        System.out.println(list2.val + " " + list1.next.val);
         // Brute force: collect all values into array, sort, build new list
         java.util.ArrayList<Integer> values = new java.util.ArrayList<>();
 
